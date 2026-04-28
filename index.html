@@ -3999,6 +3999,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const pw = document.getElementById('login-pw');
   if (pw) pw.addEventListener('keydown', (e) => { if (e.key === 'Enter') App.login(); });
 });
+
+   // === LPR: Login-Bypass — Schulungsraum ist via mein.lebenpflegenreisen.de geschuetzt ===
+   document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.login-view')?.classList.add('active');
+        document.querySelector('.app-view')?.classList.add('active');
+   });
 </script>
 
 
