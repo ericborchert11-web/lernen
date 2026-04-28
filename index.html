@@ -234,7 +234,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    ═══════════════════════════════════════════════════════════════ */
 .app-view { display: block; }
 .app-view.active { display: block; }
-.login-viewn { display: none; }
+.login-view.active { display: none; }
 
 /* ─── TOP NAV ─── */
 .topnav {
@@ -3986,7 +3986,7 @@ document.addEventListener('DOMContentLoaded', () => {
    // === LPR: Login-Bypass + Personalisierung via URL-Parameter ===
    // Schulungsraum ist via mein.lebenpflegenreisen.de geschuetzt; Name kommt aus ?name=
    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('.login-view')?.classList.remove('active');
+        document.querySelector('.login-view')?.classList.add('active');
         document.querySelector('.app-view')?.classList.add('active');
         try {
           const params = new URLSearchParams(window.location.search);
