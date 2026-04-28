@@ -3986,8 +3986,12 @@ document.addEventListener('DOMContentLoaded', () => {
    // === LPR: Login-Bypass + Personalisierung via URL-Parameter ===
    // Schulungsraum ist via mein.lebenpflegenreisen.de geschuetzt; Name kommt aus ?name=
    document.addEventListener('DOMContentLoaded', () => {
+        // 1) Login-View verstecken (.login-view.active { display: none } im CSS)
+        document.querySelector('.login-view')?.classList.add('active');
+        // 2) App-View aktivieren
+        document.querySelector('.app-view')?.classList.add('active');
+        // 3) Personalisierung
         try {
-          // Personalisierung VOR App.login(), damit Greeting/Cert beim Render schon stehen
           const params = new URLSearchParams(window.location.search);
           const userName = (params.get('name') || '').trim();
           const greeting = document.getElementById('user-greeting');
@@ -3995,14 +3999,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const certName = document.getElementById('cert-name');
           if (certName) certName.textContent = userName || 'Teilnehmer/in';
         } catch(e) { console.warn('LPR personalization failed:', e); }
-        // App.login() simuliert kompletten Login-Flow inkl. goCourses() -> Kurs-Dashboard
-        if (typeof App !== 'undefined' && typeof App.login === 'function') {
-          App.login();
-        } else {
-          // Fallback fuer den unwahrscheinlichen Fall, dass App nicht geladen ist
-          document.querySelector('.login-view')?.classList.add('active');
-          document.querySelector('.app-view')?.classList.add('active');
-        }
+        // 4) Direkt zur Kurs-Uebersicht (statt Hero/Footer-Landing)
+        try {
+          if (typeof App !== 'undefined' && typeof App.goCourses === 'function') {
+            App.goCourses();
+          }
+        } catch(e) { console.warn('LPR goCourses failed:', e); }
    });
 </script>
 
